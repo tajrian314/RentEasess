@@ -96,7 +96,7 @@ a { text-decoration: none; color: inherit; }
     padding: 0.35rem 1rem;
 }
 .signup-btn:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(16, 11, 78, 0.08);
 }
 
 /* Mobile nav toggle */
@@ -194,20 +194,58 @@ a { text-decoration: none; color: inherit; }
 footer { background:var(--dark); color:#fff; padding:2rem 5%; text-align:center; }
 
 /* Responsive */
-@media (max-width: 992px) {
-    .hero-content h1 { font-size:2.4rem; }
-    .search-bar { width:90%; bottom:-70px; }
-}
 @media (max-width: 768px) {
-    .nav-links { display:none; position:absolute; top:64px; right:0; background:#ffffff; flex-direction:column; width:220px; box-shadow:0 8px 20px rgba(0,0,0,.12); border-radius:8px; padding:8px; }
-    .nav-links.show { display:flex; }
-    .nav-toggle { display:inline-block; }
-    .search-bar { position:static; width:auto; border-radius:0; box-shadow:none; margin-top:-40px; }
-    .search-bar form { flex-direction:column; gap:.8rem; }
-    .search-input { width:100%; }
-    .popular-residence { padding-top: 40px; }
+  /* make header / nav responsive (unchanged) */
+  .nav-links { display: none; position: absolute; top: 64px; right: 0; background:#ffffff; flex-direction:column; width:220px; box-shadow:0 8px 20px rgba(0,0,0,.12); border-radius:8px; padding:8px; }
+  .nav-links.show { display:flex; }
+  .nav-toggle { display:inline-block; }
 
-    /* mobile menu text contrast */
-    .nav-links a { color: #111; }
+  /* ===== SEARCH BAR - MOBILE SAFE =====
+     Use static positioning so it does not overlay hero content.
+     Center it and reduce size so it doesn't cover the heading.
+  */
+  .search-bar {
+    position: static !important;   /* flow with document */
+    width: calc(100% - 32px);      /* full width with small gutters */
+    max-width: 920px;
+    margin: 16px auto 0;           /* place below hero content with small gap */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    padding: 0.8rem 0.9rem;        /* reduced padding */
+  }
+
+  /* stack form fields vertically on mobile */
+  .search-bar form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: stretch;
+  }
+
+  .search-input { width: 100%; }
+  .search-input label { text-align: center; font-size: .9rem; }
+  .search-input input, .search-input select {
+    border-bottom: 2px solid #eee;
+    padding: .45rem .4rem;
+    font-size: 0.95rem;
+  }
+
+  .search-btn {
+    width: 100%;
+    padding: .65rem 1rem;
+    border-radius: 12px;
+  }
+
+  /* Give the hero extra bottom space so search bar does not visually overlap */
+  .hero-section {
+    padding-bottom: 5.5rem; /* increase if still overlapping */
+  }
+
+  /* Slightly reduce hero text sizes */
+  .hero-content h1 { font-size: 2.2rem; }
+  .hero-content p { font-size: 1rem; max-width: 90%; margin-left:auto; margin-right:auto; }
+
+  /* mobile menu text contrast */
+  .nav-links a { color: #111; }
 }
-.section-placeholder { padding:40px 5%; background:transparent; border-top:1px solid #eee; }
+
