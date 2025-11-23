@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
     <title>RentEase - Renting Space Made Easy</title>
     <meta name="description" content="RentEase — professional house consultancy. Find family, bachelor, sublet or hostel properties near you." />
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
 <header id="site-header" class="site-header">
   <nav class="navbar" role="navigation" aria-label="Primary">
-    <a href="#top" class="logo">
+    <a href="#top" class="logo"> 
       RentEase
-      <img src="Image/icons.png" class="brand-icon" alt="RentEase logo">
+      <img src="Image/icons.png" class="icon" alt="RentEase logo">
     </a>
 
     <button id="nav-toggle" class="nav-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Open menu">
@@ -61,7 +63,14 @@
 
         <div class="search-input">
           <label for="budget">Budget (BDT)</label>
-          <input type="number" id="budget" name="budget" placeholder="Enter budget" min="0" inputmode="numeric">
+         <select id="budget-range">
+    <option value="">Select budget range</option>
+    <option value="lt5000">Less than 5,000</option>
+    <option value="5to20">5,000 - 20,000</option>
+    <option value="20to50">20,000 - 50,000</option>
+    <option value="gt50000">Above 50,000</option>
+</select>
+
         </div>
 
         <button type="submit" class="search-btn">Search Now</button>
@@ -133,17 +142,20 @@
 <footer>
   <div class="footer-content">
     <p>&copy; 2025 RentEase. All rights reserved.</p>
-    <div class="social-icons">
-      <a href="#" aria-label="Facebook">f</a>
-      <a href="#" aria-label="Twitter">t</a>
-      <a href="#" aria-label="Instagram">i</a>
-    </div>
+    <div class="social-links">
+    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+</div>
   </div>
 </footer>
+
+
+
+
+
 
 <script src="script.js"></script>
 </body>
 </html>
-
-
 
