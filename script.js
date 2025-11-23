@@ -1,19 +1,23 @@
 // ===== Sticky header visual class =====
 const header = document.getElementById('site-header');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 10) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
+if (header) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+}
 
 // ===== Mobile nav toggle =====
 const navToggle = document.getElementById('nav-toggle');
 const primaryMenu = document.getElementById('primary-menu');
 
-navToggle.addEventListener('click', () => {
-  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', String(!expanded));
-  primaryMenu.classList.toggle('show');
-});
+if (navToggle && primaryMenu) {
+  navToggle.addEventListener('click', () => {
+    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!expanded));
+    primaryMenu.classList.toggle('show');
+  });
+}
 
 // ===== Smooth scroll for internal links (works with offset if needed) =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -30,32 +34,55 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     window.scrollTo({ top: scrollTop, behavior: 'smooth' });
 
     // close mobile menu after click
-    if (primaryMenu.classList.contains('show')) {
+    if (primaryMenu && primaryMenu.classList.contains('show')) {
       primaryMenu.classList.remove('show');
-      navToggle.setAttribute('aria-expanded', 'false');
+      if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
     }
   });
 });
 
 // ===== Search form handling (prevent default + basic validation) =====
 const searchForm = document.getElementById('search-form');
-searchForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  const location = document.getElementById('location').value.trim();
-  const type = document.getElementById('type').value;
-  const budgetValue = document.getElementById('budget').value;
+if (searchForm) {
+  searchForm.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  // Basic validation & feedback
-  if (!location && !type && !budgetValue) {
-    alert('Please enter at least one search criterion (location, type, or budget).');
-    return;
-  }
+    const locationInput = document.getElementById('location');
+    const typeSelect = document.getElementById('type');
+    const budgetSelect = document.getElementById('budget-range'); // <-- updated to match HTML
 
-  // Convert budget to number if provided
-  const budget = budgetValue ? Number(budgetValue) : null;
-  // For this draft, just log the criteria and show a simple message
-  console.log({ location, type, budget });
-  alert('Search submitted. Check console for query object (development mode).');
+    const location = locationInput ? locationInput.value.trim() : '';
+    const type = typeSelect ? typeSelect.value : '';
+    const budgetValue = budgetSelect ? budgetSelect.value : '';
 
-  // TODO: Replace with actual search/filter logic
-});
+    // Basic validation & feedback
+    if (!location && !type && !budgetValue) {
+      alert('Please enter at least one search criterion (location, type, or budget).');
+      return;
+    }
+
+    // Convert budget value (string like "lt5000", "5to20") to numeric range
+    const budgetMap = {
+      'lt5000': { min: 0, max: 5000 },
+      '5to20': { min: 5000, max: 20000 },
+      '20to50': { min: 20000, max: 50000 },
+      'gt50000': { min: 50000, max: Infinity }
+    };
+
+    const budgetRange = budgetMap[budgetValue] || null;
+
+    // Build criteria object
+    const criteria = {
+      location: location || null,
+      type: type || null,
+      budget: budgetRange // either an object or null
+    };
+
+    console.log('Search criteria:', criteria);
+
+    // Simple user feedback in dev: use alert or better: show inline message in UI
+    alert('Search submitted. Check console for query object (development mode).');
+
+    // TODO: Replace with actual search/filter logic or call an API
+  });
+}
